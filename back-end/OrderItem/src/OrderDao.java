@@ -1,4 +1,6 @@
+import java.io.IOException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -39,5 +41,32 @@ public class OrderDao {
 		} finally {
 			 if (con != null) con.close();
 		}
+	}
+	
+	public static boolean insertItemToDB(OrderItem oi) throws ClassNotFoundException, IOException {
+
+		// jdbc code...
+		boolean f = false;
+		try {
+
+			Connection con = JDBC.createC();
+			String q = "insert into shopping_cart(name, price) values(?,?)";
+
+			// preparedStatement
+			PreparedStatement psmt = con.prepareStatement(q);
+
+			// set the value of parameters
+			psmt.setString(1, oi.getItemName());
+			psmt.setLong(2, oi.getItemPrice());
+
+			// execute...
+			psmt.executeUpdate();
+			f = true;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return f;
+
 	}
 }

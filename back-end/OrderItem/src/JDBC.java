@@ -4,8 +4,7 @@ import java.sql.SQLException;
 
 public class JDBC {
 
-	static Connection con;
-	
+	private static Connection con;
 	public static Connection createC() throws SQLException {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -17,7 +16,7 @@ public class JDBC {
 			con = DriverManager.getConnection(url, user, password);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
-		}
+		} 
 		return con;
 	}
 }

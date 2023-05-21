@@ -22,8 +22,9 @@ public class Order {
 		while (true) {
 			System.out.println("1번 누르면 상품 리스트 봅니다.");
 			System.out.println("2번 누르면 상품을 장바구니에 넣습니다.");
-			System.out.println("3번 누르면 상품 구매취소 합니다.");
-			System.out.println("4번 누르면 온라인쇼핑몰에서 나가집니다.");
+			System.out.println("3번 누르면 장바구니에 담긴 리스트 확인.");
+			System.out.println("4번 누르면 장바구니 비우기를 합니다.");
+			System.out.println("5번 누르면 온라인쇼핑몰에서 나가집니다.");
 			int c = Integer.parseInt(br.readLine());
 			
 			
@@ -37,10 +38,10 @@ public class Order {
 				int price = Integer.parseInt(br.readLine());
 				
 				
-				// create student object to store student.
+				
 				OrderItem oi = new OrderItem(name, price);
 				boolean answer = OrderDao.insertItemToDB(oi);
-				// check name and phone number
+			
 				System.out.println(oi);
 				
 				if(answer) {
@@ -49,8 +50,11 @@ public class Order {
 					System.out.println("뭔가 에러가 발생했습니다.....");
 				}
 			} else if (c == 3) {
-
+				OrderDao.showShoppingList();
 			} else if (c == 4) {
+
+			}
+			else if (c == 5) {
 				break;
 			} else {
 				throw new NumberFormatException();

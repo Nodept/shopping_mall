@@ -43,7 +43,7 @@ public class OrderDao {
 		}
 	}
 	
-	public static boolean insertItemToDB(OrderItem oi) throws ClassNotFoundException, IOException {
+	public static boolean insertItemToDB(OrderItem oi) throws ClassNotFoundException, IOException, SQLException {
 
 		// jdbc code...
 		boolean f = false;
@@ -65,8 +65,43 @@ public class OrderDao {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			 if (con != null) con.close();
 		}
 		return f;
 
+	}
+	
+	
+	public static void showShoppingList() throws SQLException {
+//		boolean = f = false;
+		
+		try {
+			Connection con = JDBC.createC();
+			// 상품 검색
+			String q = "select * from shopping_cart;";
+			
+			Statement stmt = con.createStatement();
+			stmt.executeQuery(q);
+			
+			java.sql.ResultSet set = stmt.executeQuery(q);
+			
+			while(set.next()) {
+				String name = set.getString(1);
+				int price = set.getInt(2);
+				
+				System.out.println("Item Name : " + name);
+				System.out.println("Price : " + price);
+				System.out.println("==========================");
+			}
+//		f = true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+			// try-with-resources 추가
+		} finally {
+			 if (con != null) con.close();
+		}
 	}
 }

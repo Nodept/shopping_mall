@@ -95,8 +95,8 @@ public class GoodsDaolmpl implements GoodsDao {
 		try (Connection con = dbConnector.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 			ResultSet rs = pstmt.executeQuery();
-
-			if (rs.next()) {
+			
+			while (rs.next()) {
 				GoodsDto good = new GoodsDto();
 				good.setGoodsNumber(rs.getInt("Number"));
 				good.setGoodsInfo(rs.getString("info"));
